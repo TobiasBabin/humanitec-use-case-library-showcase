@@ -51,3 +51,15 @@ resource "platform-orchestrator_module_rule" "postgres_instance" {
   module_id  = platform-orchestrator_module.postgres_instance.id
   project_id = var.project_id
 }
+
+# Assign a built-in role to the runner to manage RDS instances
+resource "aws_iam_role_policy_attachment" "agent_runner_manage_rds" {
+  role       = var.runner_iam_role_name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
+}
+
+# Assign a built-in role to the runner to manage EC2 (required for security group rule for PostgreSQL access)
+resource "aws_iam_role_policy_attachment" "agent_runner_manage_ec2" {
+  role       = var.runner_iam_role_name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}

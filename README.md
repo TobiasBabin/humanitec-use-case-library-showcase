@@ -45,6 +45,8 @@ hctl deploy $(terraform output -json | jq -r ".project_id.value") development ma
 
 5. Verify
 
+Check Humanitec console.
+
 Add kube context:
 
 ```bash
@@ -58,6 +60,8 @@ kubectl port-forward pod/$(kubectl get pods -o json \
   -l app=$(terraform output -json | jq -r ".workload_name.value") \
   | jq -r ".items[0].metadata.name") 8080:8080
 ```
+
+Open [http://localhost:8080](http://localhost:8080)
 
 6. Prepare manifest including database
 
@@ -89,3 +93,17 @@ EOF
 ```bash
 hctl deploy $(terraform output -json | jq -r ".project_id.value") development manifest-2.yaml
 ```
+
+8. Verify
+
+Check Humanitec console.
+
+Connect to workload:
+
+```bash
+kubectl port-forward pod/$(kubectl get pods -o json \
+  -l app=$(terraform output -json | jq -r ".workload_name.value") \
+  | jq -r ".items[0].metadata.name") 8080:8080
+```
+
+Open [http://localhost:8080](http://localhost:8080)

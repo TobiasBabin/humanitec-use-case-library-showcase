@@ -192,17 +192,3 @@ resource "aws_iam_openid_connect_provider" "eks_oidc" {
     "sts.amazonaws.com"
   ]
 }
-
-# # Assign a built-in role to the runner to manage RDS instances
-# # TODO this should go into the use case module
-# resource "aws_iam_role_policy_attachment" "agent_runner_manage_rds" {
-#   role       = aws_iam_role.agent_runner_irsa_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
-# }
-
-# # Assign a built-in role to the runner to manage EC2 (required for security group rule for PostgreSQL access)
-# # TODO this should go into the use case module
-# resource "aws_iam_role_policy_attachment" "agent_runner_manage_ec2" {
-#   role       = aws_iam_role.agent_runner_irsa_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-# }

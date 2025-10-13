@@ -17,6 +17,7 @@ module "postgres" {
   prefix                 = local.prefix
   project_id             = module.project.project_id
   provider_configuration = jsonencode({})
+  runner_iam_role_name   = module.runner.runner_aws_iam_role_name
   providers = {
     platform-orchestrator = platform-orchestrator
   }
