@@ -3,16 +3,16 @@ workloads:
   demo-app:
     resources:
       # The name you the assign to this resource in the context of the manifest
-      demo-workload:
-        # The resource type of the resource you wish to provision
-        type: htc-usecase-gjls-k8s-workload
-        # The resource parameters. They are mapped to the module_params of the module
-        params:
-          image: ghcr.io/astromechza/demo-app:latest
-          variables:
-            # NEW: This environment variable is used by the demo image to create a connection to a postgres database
-            OVERRIDE_POSTGRES: postgres://${resources.db.outputs.username}:${resources.db.outputs.password}@${resources.db.outputs.host}:${resources.db.outputs.port}/${resources.db.outputs.database}
+      # demo-workload:
+      #   # The resource type of the resource you wish to provision
+      #   type: htc-usecase-txpu-k8s-workload
+      #   # The resource parameters. They are mapped to the module_params of the module
+      #   params:
+      #     image: ghcr.io/astromechza/demo-app:latest
+      #     variables:
+      #       # NEW: This environment variable is used by the demo image to create a connection to a postgres database
+      #       OVERRIDE_POSTGRES: postgres://${resources.db.outputs.username}:${resources.db.outputs.password}@${resources.db.outputs.host}:${resources.db.outputs.port}/${resources.db.outputs.database}
       # NEW: The name of the database resource in the context of the manifest
       db:
         # NEW: The resource type of the database resource you wish to provision
-        type: htc-usecase-gjls-postgres-instance
+        type: htc-usecase-txpu-postgres-instance

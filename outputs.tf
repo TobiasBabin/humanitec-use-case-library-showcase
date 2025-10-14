@@ -13,3 +13,6 @@ output "k8s_connect_command" {
 output "workload_name" {
   value = module.workload.workload_name
 }
+output "subnet_ids" {
+  value = module.base_infra.subnet_ids
+}

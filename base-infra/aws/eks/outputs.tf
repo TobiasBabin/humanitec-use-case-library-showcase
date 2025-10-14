@@ -14,3 +14,6 @@ output "k8s_cluster_ca_certificate" {
 output "k8s_oidc_provider" {
   value = trimprefix(aws_eks_cluster.cluster.identity[0].oidc[0].issuer, "https://")
 }
+output "subnet_ids" {
+  value = aws_subnet.subnet[*].id
+}
