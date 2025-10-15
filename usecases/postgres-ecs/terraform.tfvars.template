@@ -6,6 +6,9 @@
 # =================
 # AWS region for resources
 aws_region = "eu-north-1"
+# The ARN of an existing OIDC provider to use
+# If not provided, a new OIDC provider will be created
+# existing_oidc_provider_arn = 
 
 #####################################
 # Platform Orchestrator configuration

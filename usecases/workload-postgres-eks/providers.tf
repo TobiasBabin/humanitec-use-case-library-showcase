@@ -4,14 +4,13 @@ terraform {
       source  = "hashicorp/random"
       version = "~> 3.0"
     }
-    google = {
-      source  = "hashicorp/google"
-    }
     aws = {
       source  = "hashicorp/aws"
+      version = "~> 6"
     }
     platform-orchestrator = {
       source  = "humanitec/platform-orchestrator"
+      version = "~> 2"
     }
   }
 }

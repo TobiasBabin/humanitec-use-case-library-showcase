@@ -44,6 +44,7 @@ module "runner_kubernetes_agent" {
 }
 
 # Base infra layer
+# TODO use official AWS modules instead to set up base infra
 module "base_infra" {
   source     = "github.com/TobiasBabin/humanitec-use-case-library-showcase//public-modules/base-infra/aws/eks"
   prefix     = local.prefix
