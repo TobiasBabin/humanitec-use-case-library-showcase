@@ -11,7 +11,7 @@ locals {
   prefix = "htc-usecase-${random_string.prefix.result}"
 }
 
-# Workload layer: database
+# Resource layer: postgres database
 module "postgres" {
   source                 = "github.com/TobiasBabin/humanitec-use-case-library-showcase//public-modules/resources/postgres-instance/aws"
   prefix                 = local.prefix
@@ -20,7 +20,7 @@ module "postgres" {
   runner_iam_role_name   = module.runner_kubernetes_agent.runner_aws_iam_role_name
 }
 
-# Workload layer: workload
+# Resource layer: k8s-workload
 module "workload" {
   source     = "github.com/TobiasBabin/humanitec-use-case-library-showcase//public-modules/resources/workload/simple-k8s-deployment"
   prefix     = local.prefix
