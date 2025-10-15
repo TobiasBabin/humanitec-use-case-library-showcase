@@ -9,6 +9,7 @@ resource "random_string" "prefix" {
 }
 locals {
   prefix = "htc-usecase-${random_string.prefix.result}"
+  oidc_provider_arn = "arn:aws:iam::477091544114:oidc-provider/oidc.humanitec.dev"
 }
 
 # Module layer: database
@@ -17,45 +18,29 @@ module "postgres" {
   prefix                 = local.prefix
   project_id             = module.project.project_id
   provider_configuration = jsonencode({})
-  runner_iam_role_name   = module.runner_kubernetes_agent.runner_aws_iam_role_name
-}
-
-# Module layer: workload
-module "workload" {
-  source     = "./module/workload/simple-k8s-deployment" # TODO - outsource into public repo
-  prefix     = local.prefix
-  project_id = module.project.project_id
+  runner_iam_role_name   = module.ecs_runner.task_role_arn
 }
 
 # Project layer
 module "project" {
   source    = "./project" # TODO - outsource into public repo
   prefix    = local.prefix
-  #runner_id = module.runner_kubernetes_agent.runner_id
   runner_id = module.ecs_runner.runner_id
 }
 
 # Runner layer
-module "runner_kubernetes_agent" {
-  source            = "./runner/kubernetes-agent" # TODO - outsource into public repo
-  prefix            = local.prefix
-  cloud_provider    = "aws"
-  orchestrator_org  = var.orchestrator_org
-  eks_oidc_provider = module.base_infra.k8s_oidc_provider
-}
 module "ecs_runner" {
-  source = "github.com/astromechza/reusable-platform-orchestrator-ecs-runner"
-
-  region                     = "eu-north-1"
+  source                     = "github.com/astromechza/reusable-platform-orchestrator-ecs-runner"
+  region                     = var.aws_region
   subnet_ids                 = module.base_infra.subnet_ids
-  humanitec_org_id           = "var.orchestrator_org"
-  existing_oidc_provider_arn = "arn:aws:iam::477091544114:oidc-provider/oidc.humanitec.dev"
+  humanitec_org_id           = var.orchestrator_org
   runner_id_prefix           = local.prefix
+  existing_oidc_provider_arn = local.oidc_provider_arn
 }
 
 # Base infra layer
 module "base_infra" {
-  source     = "./base-infra/aws/eks" # TODO - outsource into public repo
+  source     = "./base-infra/aws/ecs" # TODO - outsource into public repo
   prefix     = local.prefix
   aws_region = var.aws_region
 }

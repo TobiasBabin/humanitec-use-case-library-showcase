@@ -1,0 +1,16 @@
+# Terraform variables template
+# Copy this file to terraform.tfvars and fill in your values
+
+# =================
+# AWS configuration
+# =================
+# AWS region for resources
+aws_region = "eu-north-1"
+
+#####################################
+# Platform Orchestrator configuration
+#####################################
+# Your Orchestrator organization ID
+orchestrator_org = "your-orchestrator-org-id"
+# Your Orchestrator API token
+orchestrator_auth_token = "your-orchestrator-token"
