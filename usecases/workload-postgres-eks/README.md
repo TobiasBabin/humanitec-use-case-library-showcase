@@ -8,14 +8,22 @@ Create a service user.
 
 Fill out `terraform.tfvars`.
 
-## 2. Set up
+## 2. Create public/private key pair for runner
+
+```bash
+# This creates runner_private_key.pem (private) and runner_public_key.pem (public)
+openssl genpkey -algorithm ed25519 -out runner_private_key.pem
+openssl pkey -in runner_private_key.pem -pubout -out runner_public_key.pem
+```
+
+## 3. Set up
 
 ```bash
 tofu init
 tofu apply
 ```
 
-## 3. Prepare a manifest
+## 4. Prepare a manifest
 
 ```bash
 cat << EOF > manifest.yaml
@@ -33,7 +41,7 @@ workloads:
 EOF
 ```
 
-## 4. Deploy
+## 5. Deploy
 
 ```bash
 hctl login
@@ -43,7 +51,7 @@ hctl login
 hctl deploy $(tofu output -json | jq -r ".project_id.value") development manifest.yaml
 ```
 
-## 5. Verify
+## 6. Verify
 
 Check Humanitec console.
 
@@ -63,7 +71,7 @@ kubectl port-forward pod/$(kubectl get pods -o json \
 
 Open [http://localhost:8080](http://localhost:8080)
 
-## 6. Clean up
+## 7. Clean up
 
 Remove the environment:
 

@@ -12,4 +12,5 @@ variable "orchestrator_org" {
 }
 variable "orchestrator_auth_token" {
   description = "Platform Orchestrator auth token"
+  sensitive   = true
 }
