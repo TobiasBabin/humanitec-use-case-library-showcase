@@ -85,7 +85,7 @@ resource "kubernetes_cluster_role_binding" "runner_inner_cluster_admin" {
 
 # Deploy the Humanitec runner
 module "runner_kubernetes_agent" {
-  source           = "github.com/humanitec/platform-orchestrator-tf-modules//orchestrator-configuration/runner/kubernetes-agent?ref=hum-937-kubernetes-agent-runner"
+  source           = "github.com/humanitec/platform-orchestrator-tf-modules//orchestrator-configuration/runner/kubernetes-agent"
   humanitec_org_id = var.orchestrator_org
   private_key_path = "./runner_private_key.pem"
   public_key_path  = "./runner_public_key.pem"
