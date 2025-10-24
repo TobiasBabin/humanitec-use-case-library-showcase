@@ -1,0 +1,11 @@
+workloads:
+  demo-app:
+    resources:
+      demo-workload:
+        type: htc-usecase-jnui-k8s-workload
+        params:
+          image: ghcr.io/astromechza/demo-app:latest
+          variables:
+            OVERRIDE_POSTGRES: postgres://${resources.db.outputs.username}:${resources.db.outputs.password}@${resources.db.outputs.host}:${resources.db.outputs.port}/${resources.db.outputs.database}
+      db:
+        type: htc-usecase-jnui-postgres-instance
