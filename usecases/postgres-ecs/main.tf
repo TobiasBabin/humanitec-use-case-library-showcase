@@ -30,7 +30,7 @@ module "project" {
 
 # Runner layer
 module "ecs_runner" {
-  source                     = "github.com/astromechza/reusable-platform-orchestrator-ecs-runner"
+  source                     = "github.com/humanitec-tf-modules/serverless-ecs-orchestrator-runner?ref=v1.0.0"
   region                     = var.aws_region
   subnet_ids                 = module.vpc.private_subnets
   security_group_ids         = [module.vpc.default_security_group_id]
